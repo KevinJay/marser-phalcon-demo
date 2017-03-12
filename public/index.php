@@ -35,8 +35,7 @@ try {
     echo $application->handle()->getContent();
 
 }catch (\Exception $e) {
-    echo '<pre>';
-    print_r($e);
+    var_dump($e->getMessage());
 }
 
 

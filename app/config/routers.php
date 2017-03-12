@@ -8,4 +8,12 @@ return array(
         'action'=>2
     ),
 
+    '/index/test3/(\d+)/(\d+)' => array(
+        'module' => 'frontend',
+        'controller'=>'index',
+        'action'=>'test3',
+        'a' => 1,
+        'b' => 2,
+    ),
+
 );
