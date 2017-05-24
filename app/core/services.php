@@ -52,7 +52,6 @@ $di -> setShared('db', function () use($config) {
     if (!is_array($dbconfig) || count($dbconfig)==0) {
         throw new \Exception("the database config is error");
     }
-
     $eventsManager = new \Phalcon\Events\Manager();
     // 分析底层sql性能，并记录日志
     $profiler = new Phalcon\Db\Profiler();
@@ -67,11 +66,13 @@ $di -> setShared('db', function () use($config) {
             //获取分析结果
             $profile = $profiler -> getLastProfile();
             $sql = $profile->getSQLStatement();
+            $params = $connection->getSqlVariables();
+            (is_array($params) && count($params)) && $params = json_encode($params);
             $executeTime = $profile->getTotalElapsedSeconds();
             //日志记录
             $currentDay = date('Ymd');
             $logger = new \Phalcon\Logger\Adapter\File(ROOT_PATH . "/app/cache/logs/{$currentDay}.log");
-            $logger -> debug("{$sql} {$executeTime}");
+            $logger -> debug("{$sql} {$params} {$executeTime}");
         }
     });
 
