@@ -49,4 +49,19 @@ class ArticlesModel extends \Marser\App\Frontend\Models\BaseModel {
         }
         return $result;
     }
+
+    /**
+     * 封装phalcon model的update方法，实现仅更新数据变更字段，而非所有字段更新
+     * @param array|null $data
+     * @param null $whiteList
+     * @return bool
+     */
+    public function iupdate(array $data = null, $whiteList = null)
+    {
+        if (count($data) > 0) {
+            $attributes = $this->getModelsMetaData()->getAttributes($this);
+            $this->skipAttributesOnUpdate(array_diff($attributes, array_keys($data)));
+        }
+        return parent::update($data, $whiteList);
+    }
 }

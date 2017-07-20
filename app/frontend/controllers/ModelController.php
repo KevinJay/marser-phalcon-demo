@@ -189,4 +189,62 @@ class ModelController extends \Phalcon\Mvc\Controller{
         ]);
         var_dump($result);
     }
+
+    public function updateAction(){
+//        $articleModel = new ArticlesModel();
+//        $article = $articleModel->findFirst([
+//            'conditions' => 'aid = :aid:',
+//            'bind' => [
+//                'aid' => 3
+//            ],
+//        ]);
+//        if($article) {
+//            $result = $article->update([
+//                'title' => 'Phalcon更新测试',
+//            ]);
+//            var_dump($result);
+//        }
+
+//        $articleModel = new ArticlesModel();
+//        $articleModel->aid = 3;
+//        $result = $articleModel->update([
+//            'title' => 'Phalcon更新测试',
+//            'introduce' => "Phalcon入门教程2",
+//            'status' => 2,
+//            'view_number' => 2,
+//            'is_recommend' => 1,
+//            'is_top' => 1,
+//            'create_by' => 1,
+//            'create_time' => '2017-07-20 00:00:00',
+//            'modify_by' => 1,
+//            'modify_time' => '2017-07-20 00:00:00',
+//        ]);
+//        if(!$result){
+//            throw new \Exception('数据更新失败');
+//        }
+//        $affectedRows = $this->getDI()->get('db')->affectedRows();
+//        var_dump($result);
+//        var_dump($affectedRows);
+
+        $articleModel = new ArticlesModel();
+        $articleModel->aid = 3;
+        $result = $articleModel->iupdate([
+            'title' => 'Phalcon更新测试',
+        ]);
+        if(!$result){
+            throw new \Exception('数据更新失败');
+        }
+        $affectedRows = $this->getDI()->get('db')->affectedRows();
+        var_dump($result);
+        var_dump($affectedRows);
+    }
+
+    public function deleteAction(){
+        $articleModel = new ArticlesModel();
+        $articleModel->aid = 4;
+        $result = $articleModel->delete();
+        $affectedRows = $this->getDI()->get('db')->affectedRows();
+        var_dump($result);
+        var_dump($affectedRows);
+    }
 }
